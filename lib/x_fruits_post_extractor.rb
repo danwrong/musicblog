@@ -8,10 +8,9 @@ class XFruitsPostExtractor
   def extract_from(url_or_file)
     doc = Hpricot.XML(open(url_or_file))
     items = doc.search("//item")
-    
-    # Only choose items with a single enclosure, for simplicities sake
+
     items = items.select do |item|
-      item.search("//enclosure").size == 1
+      item.at("//content:encoded")
     end
     
     # Only choose items with a single mp3 link
@@ -46,18 +45,19 @@ class XFruitsPostExtractor
   end
   
   def mp3_from(item)
-    item.at("//enclosure").attributes["url"]
+    link = Hpricot(body_from(item)).search("//a").detect {|x| x.attributes["href"].ends_with?(".mp3")}
+    link.attributes["href"]
   end
 end
 
-# ex = XFruitsPostExtractor.new
-# posts = ex.extract_from("http://www.xfruits.com/danwrong/?id=71469&amp%3bclic=393346697&amp%3burl=http%253A%252F%252Ftympanogram.wordpress.com%252F2009%252F07%252F01%252Fmp3-smorgasbord-21%252F")
-# 
-# posts.each do |post|
-#   p post.title
-#   p post.mp3
-#   p post.body
-# end
+ex = XFruitsPostExtractor.new
+posts = ex.extract_from("http://www.xfruits.com/danwrong/?id=71469")
+
+posts.each do |post|
+  p post.title
+  p post.mp3
+  p post.body
+end
 # 
 # posts = ex.extract_from(File.join(File.dirname(__FILE__), "..", "x-fruits-feed-example.rss"))
 # p posts.size
