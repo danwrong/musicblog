@@ -31,7 +31,12 @@ class XFruitsPostExtractor
   end
   
   def body_from(item)
-    item.at("//content:encoded").inner_html.from(9).to(-4)
+    doc = Hpricot(item.at("//content:encoded").inner_text)
+    doc.search("//a").each do |item|
+      doc.search("//a[@href='#{item.attributes["href"]}']").remove if item.attributes["href"].starts_with?("http://stats.word")
+      doc.search("//a[@href='#{item.attributes["href"]}']").remove if item.attributes["href"].starts_with?("http://feeds.word")
+    end
+    doc.to_html
   end
   
   def mp3_from(item)
@@ -39,9 +44,9 @@ class XFruitsPostExtractor
   end
 end
 
-# ex = XFruitsPostExtractor.new
-# posts = ex.extract_from(File.join(File.dirname(__FILE__), "..", "x-fruits-feed-example.rss"))
-# p posts.size
-# p posts.first.title
-# p posts.first.body
-# p posts.first.mp3
+ex = XFruitsPostExtractor.new
+posts = ex.extract_from(File.join(File.dirname(__FILE__), "..", "x-fruits-feed-example.rss"))
+p posts.size
+p posts.first.title
+p posts.first.body
+p posts.first.mp3
