@@ -34,7 +34,7 @@ class DialectizerTextConverter < TextConverter
     end
     result = result.split(". ").collect do |sentence|
       if rand(1) == 0 && !self.class.exclamations.empty?
-        "#{sentence}. #{self.class.exclamations.rand}"
+        "#{sentence}. #{self.class.exclamations.rand}! "
       else
         sentence
       end
