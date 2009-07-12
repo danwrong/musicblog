@@ -18,5 +18,3 @@ class TechnoHausTextConverter < DialectizerTextConverter
   exclaim "I want you to turn on the groove"
   exclaim "It drives you away just like a fast car"
 end
-
-p TechnoHausTextConverter.new.convert_snippet('Tom Ward in the house!')
