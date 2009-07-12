@@ -28,10 +28,17 @@ class DialectizerTextConverter < TextConverter
   end
   
   def convert_snippet(string)
-    returning result = string.dup do
-      self.class.rules.each do |rule|
-        result.gsub!(rule.regex, rule.replacement)
-      end
+    result = string.dup
+    self.class.rules.each do |rule|
+      result.gsub!(rule.regex, rule.replacement)
     end
+    result = result.split(". ").collect do |sentence|
+      if rand(1) == 0 && !self.class.exclamations.empty?
+        "#{sentence}. #{self.class.exclamations.rand}"
+      else
+        sentence
+      end
+    end.join(". ")
+    result
   end
 end
