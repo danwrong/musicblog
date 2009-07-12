@@ -3,6 +3,8 @@ require 'hpricot'
 require 'open-uri'
 require 'activesupport'
 require 'post'
+require 'fileutils'
+require 'digest/md5'
 
 class XFruitsPostExtractor
   def extract_from(url_or_file)
@@ -21,8 +23,8 @@ class XFruitsPostExtractor
     end
     
     items.collect do |item|
-      Post.new(title_from(item), body_from(item), mp3_from(item))
-    end
+      Post.new(title_from(item), body_from(item), mp3_from(item)) rescue nil
+    end.compact
   end
   
   def title_from(item)
@@ -46,17 +48,33 @@ class XFruitsPostExtractor
   
   def mp3_from(item)
     link = Hpricot(body_from(item)).search("//a").detect {|x| x.attributes["href"].ends_with?(".mp3")}
-    link.attributes["href"]
+    result = link.attributes["href"]
+    if result =~ / /
+      URI.encode(result)
+    else
+      result
+    end
+    digest = Digest::MD5.hexdigest(result)
+    FileUtils.mkdir_p(File.join(File.dirname(__FILE__), "..", "tmp"))
+    path = File.expand_path(File.join(File.dirname(__FILE__), "..", "tmp", digest + ".mp3"))
+    unless File.exist?(path)
+      `curl \"#{result}\" > #{path}`
+    end
+    if File.size(path) > 1000000
+      path
+    else
+      raise "MP3 could not be downloaded"
+    end
   end
 end
-
+# 
 # ex = XFruitsPostExtractor.new
 # posts = ex.extract_from("http://www.xfruits.com/danwrong/?id=71469")
 # 
 # posts.each do |post|
-#   p post.title
+# #  p post.title
 #   p post.mp3
-#   p post.body
+# #  p post.body
 # end
 # 
 # posts = ex.extract_from(File.join(File.dirname(__FILE__), "..", "x-fruits-feed-example.rss"))
