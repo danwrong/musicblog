@@ -1,4 +1,5 @@
 # Takes a post, and converts the text and audio to be published to a blog
+require 'post'
 
 class Persona
   def initialize(text_converter = TextConverter.new, audio_converter = AudioConverter.new)

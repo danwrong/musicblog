@@ -50,14 +50,14 @@ class XFruitsPostExtractor
   end
 end
 
-ex = XFruitsPostExtractor.new
-posts = ex.extract_from("http://www.xfruits.com/danwrong/?id=71469")
-
-posts.each do |post|
-  p post.title
-  p post.mp3
-  p post.body
-end
+# ex = XFruitsPostExtractor.new
+# posts = ex.extract_from("http://www.xfruits.com/danwrong/?id=71469")
+# 
+# posts.each do |post|
+#   p post.title
+#   p post.mp3
+#   p post.body
+# end
 # 
 # posts = ex.extract_from(File.join(File.dirname(__FILE__), "..", "x-fruits-feed-example.rss"))
 # p posts.size
