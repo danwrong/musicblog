@@ -1,4 +1,6 @@
+require 'rubygems'
 require 'hpricot'
+require 'active_support'
 
 class TextConverter
   def convert(title, body)
