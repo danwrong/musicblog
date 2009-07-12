@@ -1,16 +1,22 @@
 require 'dialectizer_text_converter'
 
 class TechnoHausTextConverter < DialectizerTextConverter
-  replace 'the ',  :with => 'de '
+  replace 'the ',  :with => 'ze '
   replace 'house', :with => 'haus'
-  replace ' and ', :with => 'und'
+  replace ' and ', :with => ' und '
   replace 'I ',    :with => 'ich '
   replace ' this', :with => ' zis'
-  replace 'good ', :with => 'banging '
+  replace 'good ', :with => 'GUT '
   replace ' is ',  :with => ' ist '
-  replace ' tune ', :with => ' banging remix tune '
-  replace ' track ', :with => ' hardcore minimal euro-trance remix '
+  replace ' tune ', :with => ' TUNEZ '
+  replace ' track ', :with => ' HARDCORE MINIMAL EURO-TRANCE REMIX '
   replace ' song ', :with => ' cut '
+  replace ' band ', :with => ' posse and krew '
+  replace ' album ', :with => ' DANZEN PARTY MIX!!! '
+  replace ' music ', :with => ' TUNEZ '
+  replace ' sing', :with => ' MC'
+  replace ' melody ', :with => ' SLAMMING BEATZ '
+  
   
   exclaim 'GET DOWN WITH THE STYLE!'
   exclaim 'Get ready for zis!'

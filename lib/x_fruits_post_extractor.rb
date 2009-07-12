@@ -64,7 +64,6 @@ class XFruitsPostExtractor
     if File.size(path) > 1000000
       path
     else
-      p result
       raise "MP3 could not be downloaded"
     end
   end
