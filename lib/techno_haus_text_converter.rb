@@ -1,8 +1,13 @@
 require 'dialectizer_text_converter'
 
 class TechnoHausTextConverter < DialectizerTextConverter
-  replace 'the ', :with => 'de '
+  replace 'the ',  :with => 'de '
   replace 'house', :with => 'haus'
+  replace ' and ', :with => 'und'
+  replace 'I ',    :with => 'ich '
+  replace ' this', :with => ' zis'
+  replace 'good ', :with => 'banging '
+  replace ' is ',  :with => ' ist '
   
   exclaim 'Get down with de style!'
   exclaim 'Get ready for zis!'
