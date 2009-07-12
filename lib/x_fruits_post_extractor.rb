@@ -49,28 +49,30 @@ class XFruitsPostExtractor
   def mp3_from(item)
     link = Hpricot(body_from(item)).search("//a").detect {|x| x.attributes["href"].ends_with?(".mp3")}
     result = link.attributes["href"]
+    
     if result =~ / /
-      URI.encode(result)
-    else
-      result
+      result = URI.encode(result)
     end
+    
     digest = Digest::MD5.hexdigest(result)
     FileUtils.mkdir_p(File.join(File.dirname(__FILE__), "..", "tmp"))
     path = File.expand_path(File.join(File.dirname(__FILE__), "..", "tmp", digest + ".mp3"))
     unless File.exist?(path)
       `curl \"#{result}\" > #{path}`
     end
+    
     if File.size(path) > 1000000
       path
     else
+      p result
       raise "MP3 could not be downloaded"
     end
   end
 end
-# 
+# # 
 # ex = XFruitsPostExtractor.new
 # posts = ex.extract_from("http://www.xfruits.com/danwrong/?id=71469")
-# 
+
 # posts.each do |post|
 # #  p post.title
 #   p post.mp3
