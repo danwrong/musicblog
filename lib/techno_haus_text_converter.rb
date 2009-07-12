@@ -1,20 +1,28 @@
 require 'dialectizer_text_converter'
 
 class TechnoHausTextConverter < DialectizerTextConverter
-  replace 'the ', :with => 'de '
+  replace 'the ',  :with => 'de '
   replace 'house', :with => 'haus'
+  replace ' and ', :with => 'und'
+  replace 'I ',    :with => 'ich '
+  replace ' this', :with => ' zis'
+  replace 'good ', :with => 'banging '
+  replace ' is ',  :with => ' ist '
+  replace ' tune ', :with => ' banging remix tune '
+  replace ' track ', :with => ' hardcore minimal euro-trance remix '
+  replace ' song ', :with => ' cut '
   
-  exclaim 'Get down with de style!'
+  exclaim 'GET DOWN WITH THE STYLE!'
   exclaim 'Get ready for zis!'
   exclaim "No no limits, we'll reach for the sky!"
-  exclaim "Hard to the core, I feel the floor"
-  exclaim "No valley too deep, no mountain too high"
-  exclaim "No no limits, won't give up the fight"
+  exclaim "HARD TO THE CORE I FEEL THE FLOOR!"
+  exclaim "NO VALLEY TOO DEEP, NO MOUNTAIN TOO HIGH!"
+  exclaim "NO NO LIMITS WONT GIVE UP THE FIGHT!"
   exclaim "I'm playing on the road; I've got no fear"
-  exclaim "I'll put you down in a microphone contest"
-  exclaim "Bass in your face, the electric bomb"
-  exclaim "Throw the groove down"
+  exclaim "I'LL PUT YOU DOWN IN A MICROPHONE CONTEST"
+  exclaim "BASS IN YOU FACE, THE ELECTRIC BOMB!"
+  exclaim "THROW THE GROOVE DOWN!"
   exclaim "We race them, we gotta pump, we can't can't get loose"
-  exclaim "I want you to turn on the groove"
+  exclaim "I WANT YOU TO TURN ON THE GROOVE"
   exclaim "It drives you away just like a fast car"
 end
