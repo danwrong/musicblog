@@ -14,9 +14,17 @@ class DialectizerTextConverter < TextConverter
     @rules ||= []
   end
   
+  def self.exclamations
+    @exclamations ||= []
+  end
+  
   def self.replace(regex, with)
     with = with[:with] if with.is_a?(Hash)
     rules << Rule.new(regex, with)
+  end
+  
+  def self.exclaim(string)
+    self.exclamations << string
   end
   
   def convert_snippet(string)
