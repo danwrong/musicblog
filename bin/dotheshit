@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
+$:.unshift(lib_dir) if File.exists?(lib_dir)
 
 require 'x_fruits_post_extractor'
 require 'persona'
