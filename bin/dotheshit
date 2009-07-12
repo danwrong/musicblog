@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
+$:.unshift(lib_dir) if File.exists?(lib_dir)
+
+require 'x_fruits_post_extractor'
+require 'persona'
+require 'donk_converter'
+require 'techno_haus_converter'
+require 'tumblr_exporter'
+
+posts = XFruitsPostExtractor.new.extract_from("http://www.xfruits.com/danwrong/?id=71469")
+hans = Persona.new(TechnoHauseConverter.new, DonkConverter.new)
+
+rewritten_posts = posts.collect do |p|
+  puts "Rewriting #{p.title}..."
+  hans.rewrite(p)
+end
+
+puts 'Posting em up'
+t = TumblrExpoter.new('hackday@danwebb.net', 'fail')
+t.export(rewritten_posts)
+
+
+  
